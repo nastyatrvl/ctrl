@@ -28,7 +28,7 @@ path_to_train_file = fname = args.text_file
 domain = [args.control_code]
 
 train_text = open(path_to_train_file, 'rb').read().decode(encoding='utf-8')
-bpe = fastBPE.fastBPE('../codes', 'vocab')
+bpe = fastBPE.fastBPE('../codes', '../vocab')
 tokenized_train_text = bpe.apply([train_text.encode('ascii', errors='ignore') if not use_py3 else train_text])[0] # will NOT work for non-English texts 
 # if you want to run non-english text, please tokenize separately using ./fast applybpe and then run this script on the .bpe file with utf8 encoding
 
@@ -36,7 +36,7 @@ tokenized_train_text = re.findall(r'\S+|\n', tokenized_train_text)
 tokenized_train_text = list(filter(lambda x: x != u'@@', tokenized_train_text))
 
 # load the vocabulary from file
-vocab = open('vocab').read().decode(encoding='utf-8').split('\n') if not use_py3 else open('vocab', encoding='utf-8').read().split('\n')
+vocab = open('../vocab').read().decode(encoding='utf-8').split('\n') if not use_py3 else open('../vocab', encoding='utf-8').read().split('\n')
 vocab = list(map(lambda x: x.split(' ')[0], vocab)) + ['<unk>'] + ['\n']
 print ('{} unique words'.format(len(vocab)))
 
